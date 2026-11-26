@@ -10,7 +10,8 @@
 .gender-grid .option-frame{height:auto;aspect-ratio:1;border-radius:50%}
 .gender-grid .option:nth-child(2){grid-column:2;grid-row:1/span 2;align-self:center;justify-self:end;width:105.6%}
 .gender-grid .option:nth-child(3){grid-column:1;grid-row:2;width:73.2%}
-.story .option-frame{height:auto;aspect-ratio:1;border-radius:17px}
+.story .option-frame,.art .option-frame{border-radius:17px}
+.story .option-frame{height:auto;aspect-ratio:356/492}
 .option[aria-pressed=true] .option-frame{outline:2px solid #fff;outline-offset:4px}
 .option[aria-pressed=true] .option-label{color:#fff}
 footer{margin-top:auto;position:sticky;bottom:0;padding:12px 12px max(12px,env(safe-area-inset-bottom));background:transparent;z-index:2}#next{height:48px;border:0;background:#4C52FF;width:100%;border-radius:12px;font-weight:650}button:focus-visible{outline:3px solid white;outline-offset:3px}.message{font-size:14px;color:#c4c4d0}
@@ -46,7 +47,7 @@ main[hidden]{display:none}
 .story .option-frame{width:81%;justify-self:center;rotate:var(--tilt)}
 .art-list{gap:28px}
 .art-list .option{width:75%;justify-self:center}
-.art .option-frame{height:auto;aspect-ratio:2/1;border-radius:34px;rotate:var(--tilt)}
+.art .option-frame{height:auto;aspect-ratio:2/1;rotate:var(--tilt)}
 .stage{flex:1;display:flex;flex-direction:column}
 .stage section{flex:1;display:flex;flex-direction:column;padding-bottom:0}
 .stage h1{margin-bottom:0;translate:0 -20px}
@@ -82,12 +83,11 @@ cosmos.append(stars);
 
 const pages=[
  ['What gender are you into chatting with?',['Male','Female','Everyone']],
- ['What type of stories are you into?',['#Romance','#Adventure','#Paranormal','#LGBT+','#Fantasy','#Sci-Fi','#Mystery','#Comedy','#Drama','#Horror']],
+ ['What type of stories are you into?',['#Romance','#Adventure','#Paranormal','#LGBT+','#Mystery','#Fantasy']],
  ['What kind of art style are you into?',['#Realistic','#Semi-realistic','#Anime']]
 ];
-const storyPhotos=[22,29,15,47,24,28,33,40,42,54];
-const storyTilts=pages[1][1].map((_,index)=>
- (1+Math.random()*2)*(index%2===0?-1:1));
+const storyRowTilts=Array.from({length:Math.ceil(pages[1][1].length/2)},
+ ()=>1+Math.random()*2);
 const artTilts=pages[2][1].map((_,index)=>
  (1+Math.random()*2)*(index%2===0?-1:1));
 const selected=[new Set(),new Set(),new Set()];
@@ -108,7 +108,12 @@ function draw(){
  labels.forEach((label,i)=>{
   const button=document.createElement('button');
   button.className='option '+['','story','art'][step];
-  if(step===1)button.style.setProperty('--tilt',storyTilts[i]+'deg');
+  if(step===1){
+   const row=Math.floor(i/2);
+   const column=i%2;
+   const direction=(row+column)%2===0?-1:1;
+   button.style.setProperty('--tilt',(storyRowTilts[row]*direction)+'deg');
+  }
   if(step===2)button.style.setProperty('--tilt',artTilts[i]+'deg');
   const frame=document.createElement('span');
   frame.className='option-frame';
@@ -116,9 +121,7 @@ function draw(){
   image.alt='';
   image.decoding='async';
   image.addEventListener('error',()=>image.remove(),{once:true});
-  image.src=step===1
-   ? 'https://picsum.photos/id/'+storyPhotos[i]+'/480/480'
-   : 'assets/'+label.replace(/^#/, '').toLowerCase()+'.png';
+  image.src='assets/'+encodeURIComponent(label.replace(/^#/, '').toLowerCase())+'.png';
   frame.append(image);
   const caption=document.createElement('span');
   caption.className='option-label';
