@@ -5,14 +5,12 @@
 *{box-sizing:border-box}body{margin:0;background:#000;color:#fafafa;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:480px;margin:auto;min-height:100svh;display:flex;flex-direction:column}header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:calc(15px + env(safe-area-inset-top)) 24px 0;height:auto;min-height:64px}nav{display:flex;gap:5px}nav i{height:4px;width:34px;background:#29292e;border-radius:8px}nav i.on{background:#777bff}button{font:inherit;color:inherit;cursor:pointer}#back{justify-self:start;width:44px;height:44px;border:0;background:none;font-size:26px}#back:disabled{opacity:.32;cursor:default}#skip{justify-self:end;border:1px solid #323236;background:none;border-radius:99px;padding:9px 17px;font-size:14px}section{padding:clamp(30px,7vh,70px) 24px 32px}h1{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:700;text-align:center;font-size:clamp(31px,8vw,43px);letter-spacing:-.055em;line-height:1.08;margin:0 0 32px;text-wrap:balance}.options{display:grid;gap:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.option{display:grid;gap:16px;min-width:0;padding:0;border:0;background:none;text-align:center;font-weight:600;font-size:clamp(14px,4vw,18px)}
 .option-frame{display:block;position:relative;overflow:hidden;height:72px;border-radius:60px;background:linear-gradient(120deg,#282840,#151517)}
 .option-frame img{display:block;width:100%;height:100%;object-fit:cover}
-.gender-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 10px;align-items:start}
-.gender-grid .option{width:72%;justify-self:center}
-.gender-grid .option-frame{height:auto;aspect-ratio:3/4;border-radius:999px}
-.gender-grid .option:nth-child(2){grid-column:2;grid-row:1/span 2;align-self:center;width:88%}
-.gender-grid .option:nth-child(2) .option-frame{aspect-ratio:4/5}
-.gender-grid .option:nth-child(3){grid-column:1;grid-row:2;width:61%}
-.story .option-frame,.art .option-frame{height:auto;aspect-ratio:1}
-.story .option-frame{border-radius:17px}.art .option-frame{border-radius:50%}
+.gender-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 10px;align-items:start}
+.gender-grid .option{width:86.4%;justify-self:center}
+.gender-grid .option-frame{height:auto;aspect-ratio:1;border-radius:50%}
+.gender-grid .option:nth-child(2){grid-column:2;grid-row:1/span 2;align-self:center;justify-self:end;width:105.6%}
+.gender-grid .option:nth-child(3){grid-column:1;grid-row:2;width:73.2%}
+.story .option-frame{height:auto;aspect-ratio:1;border-radius:17px}
 .option[aria-pressed=true] .option-frame{outline:2px solid #fff;outline-offset:4px}
 .option[aria-pressed=true] .option-label{color:#fff}
 footer{margin-top:auto;position:sticky;bottom:0;padding:12px 12px max(12px,env(safe-area-inset-bottom));background:transparent;z-index:2}#next{height:48px;border:0;background:#4C52FF;width:100%;border-radius:12px;font-weight:650}button:focus-visible{outline:3px solid white;outline-offset:3px}.message{font-size:14px;color:#c4c4d0}
@@ -46,21 +44,23 @@ main[hidden]{display:none}
 #restart{height:48px;width:100%;border:0;border-radius:12px;background:#4C52FF;font-weight:650}
 .story-grid{row-gap:30px}
 .story .option-frame{width:81%;justify-self:center;rotate:var(--tilt)}
-.art{align-self:start;grid-template-rows:auto auto;align-content:start;width:var(--option-width);justify-self:center;translate:var(--offset-x) var(--offset-y)}
+.art-list{gap:28px}
+.art-list .option{width:75%;justify-self:center}
+.art .option-frame{height:auto;aspect-ratio:2/1;border-radius:34px;rotate:var(--tilt)}
 .stage{flex:1;display:flex;flex-direction:column}
 .stage section{flex:1;display:flex;flex-direction:column;padding-bottom:0}
-.stage h1{margin-bottom:0}
+.stage h1{margin-bottom:0;translate:0 -20px}
 .stage .options-window{margin-block:auto}.stage .options{padding-block:16px}
 .stage .message{position:absolute;inset:auto 24px 0;margin:0}
 .stage .outgoing{height:100%;inset:0}
-main:has(.story-grid){height:100svh}
-.stage:has(.story-grid),section:has(.story-grid){min-height:0}
-.stage .options-window:has(.story-grid){position:relative;flex:1;min-height:0;margin:24px -10px 0;overflow:hidden;mask-image:linear-gradient(to bottom,transparent,#000 22px,#000 calc(100% - 22px),transparent)}
-.options-window:has(.story-grid)::before,.options-window:has(.story-grid)::after{content:"";position:absolute;z-index:1;left:0;right:0;height:18px;pointer-events:none;backdrop-filter:blur(4px)}
-.options-window:has(.story-grid)::before{top:0;mask-image:linear-gradient(#000,transparent)}
-.options-window:has(.story-grid)::after{bottom:0;mask-image:linear-gradient(transparent,#000)}
-.stage .story-grid{height:100%;overflow-y:auto;overscroll-behavior:contain;align-content:start;padding:24px 10px;scrollbar-width:none}
-.story-grid::-webkit-scrollbar{display:none}
+main:has(.story-grid, .art-list){height:100svh}
+.stage:has(.story-grid, .art-list),section:has(.story-grid, .art-list){min-height:0}
+.stage .options-window:has(.story-grid, .art-list){position:relative;flex:1;min-height:0;margin:24px -10px 0;overflow:hidden;mask-image:linear-gradient(to bottom,transparent,#000 22px,#000 calc(100% - 22px),transparent)}
+.options-window:has(.story-grid, .art-list)::before,.options-window:has(.story-grid, .art-list)::after{content:"";position:absolute;z-index:1;left:0;right:0;height:18px;pointer-events:none;backdrop-filter:blur(4px)}
+.options-window:has(.story-grid, .art-list)::before{top:0;mask-image:linear-gradient(#000,transparent)}
+.options-window:has(.story-grid, .art-list)::after{bottom:0;mask-image:linear-gradient(transparent,#000)}
+.stage :is(.story-grid, .art-list){height:100%;overflow-y:auto;overscroll-behavior:contain;align-content:start;padding:24px 10px;scrollbar-width:none}
+:is(.story-grid, .art-list)::-webkit-scrollbar{display:none}
 </style>
 <div class="starfield" aria-hidden="true"><div class="cosmos"><div class="nebula"></div></div></div><main><header><button id="back" aria-label="Back">←</button><nav aria-label="Progress"></nav><button id="skip">Skip</button></header><div class="stage"><section><h1 tabindex="-1"></h1><div class="options-window"><div id="options" class="options"></div></div><p role="status" id="message" class="message"></p></section></div><footer><button id="next">Continue</button></footer></main><main id="page-four" aria-label="Page 4" tabindex="-1" hidden><footer><button id="restart">Back to Step 1</button></footer></main><canvas class="warp" aria-hidden="true" hidden></canvas>
 <script>
@@ -83,21 +83,13 @@ cosmos.append(stars);
 const pages=[
  ['What gender are you into chatting with?',['Male','Female','Everyone']],
  ['What type of stories are you into?',['#Romance','#Adventure','#Paranormal','#LGBT+','#Fantasy','#Sci-Fi','#Mystery','#Comedy','#Drama','#Horror']],
- ['What kind of art style are you into?',['#3D','#Realistic','#Semi-realistic','#Anime']]
+ ['What kind of art style are you into?',['#Realistic','#Semi-realistic','#Anime']]
 ];
-const photos=[[10,64,65],[22,29,15,47,24,28,33,40,42,54],[48,100,164,237]];
+const storyPhotos=[22,29,15,47,24,28,33,40,42,54];
 const storyTilts=pages[1][1].map((_,index)=>
  (1+Math.random()*2)*(index%2===0?-1:1));
-const artLayouts=[
- {width:98,x:-8,y:-6},
- {width:77,x:12,y:13},
- {width:73,x:10,y:9},
- {width:93,x:-6,y:-10}
-].map(layout=>({
- width:layout.width+Math.random()*2,
- x:layout.x+Math.random()*3-1.5,
- y:layout.y+Math.random()*4-2
-}));
+const artTilts=pages[2][1].map((_,index)=>
+ (1+Math.random()*2)*(index%2===0?-1:1));
 const selected=[new Set(),new Set(),new Set()];
 const get=id=>document.getElementById(id);
 const heading=document.querySelector('h1'),nav=document.querySelector('nav'),options=get('options'),skip=get('skip'),next=get('next'),message=get('message');
@@ -111,25 +103,22 @@ function draw(){
  get('back').disabled=step===0;
  skip.hidden=step===2;
  next.textContent=step===2?'Confirm':'Continue';
- options.className=['options gender-grid','options grid story-grid','options grid'][step];
+ options.className=['options gender-grid','options grid story-grid','options art-list'][step];
  options.replaceChildren();
  labels.forEach((label,i)=>{
   const button=document.createElement('button');
   button.className='option '+['','story','art'][step];
   if(step===1)button.style.setProperty('--tilt',storyTilts[i]+'deg');
-  if(step===2){
-   const layout=artLayouts[i];
-   button.style.setProperty('--option-width',layout.width+'%');
-   button.style.setProperty('--offset-x',layout.x+'px');
-   button.style.setProperty('--offset-y',layout.y+'px');
-  }
+  if(step===2)button.style.setProperty('--tilt',artTilts[i]+'deg');
   const frame=document.createElement('span');
   frame.className='option-frame';
   const image=new Image();
   image.alt='';
   image.decoding='async';
   image.addEventListener('error',()=>image.remove(),{once:true});
-  image.src='https://picsum.photos/id/'+photos[step][i]+(step===0?'/360/480':'/480/480');
+  image.src=step===1
+   ? 'https://picsum.photos/id/'+storyPhotos[i]+'/480/480'
+   : 'assets/'+label.replace(/^#/, '').toLowerCase()+'.png';
   frame.append(image);
   const caption=document.createElement('span');
   caption.className='option-label';
