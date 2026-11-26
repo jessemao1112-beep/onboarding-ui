@@ -188,7 +188,7 @@ async function goToStep(target){
   const easing='cubic-bezier(.22,1,.36,1)';
   const animations=[];
   for(const [index, incoming] of Array.from(panel.children).entries()){
-   const duration=incoming===heading?440:820;
+   const duration=incoming===heading?650:820;
    const timing={duration,easing,fill:'both'};
    const slide=(node,start,end)=>node.animate([
     {transform:'translateX('+start+'px)'},
